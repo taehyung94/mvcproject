@@ -7,14 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>Insert title here</title>
 </head>
 <body>
-<form action="member/login">
-아이디:<input type="text" name="login_id"><br>
-비밀번호:<input type="password" name="login_password"><br>
-<input type="submit" value="로그인">
-</form>
-<a href="member/signup">회원가입</a>
+<script>
+alert('${msg}');
+location.href='${url}';
+
+</script>
 </body>
 </html>

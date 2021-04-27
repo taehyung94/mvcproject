@@ -7,11 +7,11 @@ import mvc.fx.AbstractController;
 import mvc.fx.ModelAndView;
 
 public class MemberSignUp extends AbstractController{
-
 	@Override
 	public ModelAndView handleRequestInternal(HttpServletRequest req, HttpServletResponse res) {
 		// TODO Auto-generated method stub
-		return null;
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/WEB-INF/views/signup.jsp");
+		return mv;
 	}
-
 }
