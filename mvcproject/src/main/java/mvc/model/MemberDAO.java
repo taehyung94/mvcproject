@@ -50,4 +50,19 @@ public class MemberDAO {
 			ps.executeUpdate();
 		}
 	}
+	
+	public Long login(MemberDTO memberDTO) throws SQLException{
+		String query = "select id from members where login_id = ? and login_password = ?";
+		Long r = null;
+		try (Connection conn = dataSource.getConnection();
+				 PreparedStatement ps = conn.prepareStatement(query)){
+			ps.setString(1,memberDTO.getLoginId());
+			ps.setString(2, memberDTO.getLoginPassword());
+			try(ResultSet rs = ps.executeQuery();) {
+				rs.next();
+				r = rs.getLong(1);
+			}
+		}
+		return r;
+	}
 }

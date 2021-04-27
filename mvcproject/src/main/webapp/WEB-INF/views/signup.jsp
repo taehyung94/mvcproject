@@ -68,9 +68,9 @@ window.onload = ()=>{
 </head>
 <body>
 <form action="signupAction" id="form" method="post">
-아이디:<input type="text" name="login_id" id="login_id"> &nbsp; <input type="button" id="id_check_btn" value="중복확인"><br>
-비밀번호:<input type="password" name="login_password" id="login_password"><br>
-비밀번호확인:<input type="password" name="login_password_check" id = "login_password_check"><span id="pwd_check_log"></span><br>
+아이디:<input type="text" name="login_id" id="login_id" required="required"> &nbsp; <input type="button" id="id_check_btn" value="중복확인"><br>
+비밀번호:<input type="password" name="login_password" id="login_password" required="required"><br>
+비밀번호확인:<input type="password" name="login_password_check" id = "login_password_check" required="required"><span id="pwd_check_log"></span><br>
 <input type="submit" id="submit_btn" value="회원가입">
 </form>
 </body>
