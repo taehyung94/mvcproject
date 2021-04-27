@@ -43,12 +43,55 @@ public class ChatRoomDAO {
 			try(ResultSet rs = ps.executeQuery();) {
 				while(rs.next()) {
 					ChatRoomDTO dto = new ChatRoomDTO();
-					dto.setChatroom_id(rs.getLong(1));
+					dto.setId(rs.getLong(1));
 					dto.setName(rs.getString(2));
 					list.add(dto);
 				}
 			}
 		}
 		return list;
+	}
+	
+	public List<ChatRoomDTO>  getChattingRoomList() throws Exception {
+		String query = "select * from chatroom";
+		List<ChatRoomDTO> list = new ArrayList<ChatRoomDTO>();
+		try  (Connection conn = dataSource.getConnection();
+				 PreparedStatement ps = conn.prepareStatement(query)){
+			try(ResultSet rs = ps.executeQuery()){
+				while(rs.next()) {
+					long id = rs.getLong(1);
+					String name = rs.getString(2);
+					list.add(new ChatRoomDTO(id, name));
+				}
+			}
+		}
+		return list;
+	}
+	public long makeChattingRoom(String name) throws Exception{
+		System.out.println("누가 불렀음");
+		String query = "insert into chatroom values(chatroom_seq.nextval, ?)";
+		long chatroom_id = 0;
+		try  (Connection conn = dataSource.getConnection();
+				 PreparedStatement ps = conn.prepareStatement(query)){
+			ps.setString(1, name);
+			ps.executeUpdate();
+			try (PreparedStatement ps2 = conn.prepareStatement("select chatroom_seq.currval from dual")){
+				try (ResultSet rs = ps2.executeQuery()){
+					rs.next();
+					chatroom_id = rs.getLong(1);
+				}
+			}
+		}
+		return chatroom_id;
+	}
+	
+	public void enroll(long member_id, long chatroom_id) throws Exception {
+		String query = "insert into chat_enroll values(?, ?, sysdate)";
+		try  (Connection conn = dataSource.getConnection();
+				 PreparedStatement ps = conn.prepareStatement(query)){
+			ps.setLong(1, member_id);
+			ps.setLong(2, chatroom_id);
+			ps.executeUpdate();
+		}
 	}
 }

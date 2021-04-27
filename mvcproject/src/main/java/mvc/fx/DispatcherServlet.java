@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/member/*"},loadOnStartup = 10)
+@WebServlet(urlPatterns = {"/member/*", "/chatting/*"},loadOnStartup = 10)
 public class DispatcherServlet extends HttpServlet {
 	private Map<String, AbstractController> controllerMap = new HashMap<String, AbstractController>();
 	
@@ -27,6 +27,7 @@ public class DispatcherServlet extends HttpServlet {
 			for(Object oKey : prop.keySet()) {
 				String key = (String)oKey;
 				Class className = Class.forName(prop.getProperty(key));
+				System.out.println(key + " " + className);
 				controllerMap.put(key, (AbstractController)className.getConstructor().newInstance());
 			}
 		} catch (Exception e) {
