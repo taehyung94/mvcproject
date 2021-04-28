@@ -23,11 +23,12 @@
 </tr>
 	<c:forEach var="dto" items="${list }">
 	<tr>
-	<td><a href="detail?no=${dto.id}">${dto.id }</a></td>
+	<td><a href="/mvcproject/chatting/room?chatroom_id=${dto.id}">${dto.id }</a></td>
 	<td>${dto.name }</td>
 	</tr>
 	</c:forEach>
 </table>
 <a href="/mvcproject/chatting/roomlist">다른 채팅방 보러가기</a>
+<a href="/mvcproject/member/logout">로그아웃</a>
 </body>
 </html>

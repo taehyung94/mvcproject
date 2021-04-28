@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.Context;
@@ -53,7 +54,7 @@ public class ChatRoomDAO {
 	}
 	
 	public List<ChatRoomDTO>  getChattingRoomList() throws Exception {
-		String query = "select * from chatroom";
+		String query = "select * from chatroom order by id desc";
 		List<ChatRoomDTO> list = new ArrayList<ChatRoomDTO>();
 		try  (Connection conn = dataSource.getConnection();
 				 PreparedStatement ps = conn.prepareStatement(query)){
@@ -87,6 +88,45 @@ public class ChatRoomDAO {
 	
 	public void enroll(long member_id, long chatroom_id) throws Exception {
 		String query = "insert into chat_enroll values(?, ?, sysdate)";
+		try  (Connection conn = dataSource.getConnection();
+				 PreparedStatement ps = conn.prepareStatement(query)){
+			ps.setLong(1, member_id);
+			ps.setLong(2, chatroom_id);
+			ps.executeUpdate();
+		}
+	}
+	
+	public int findIt(long chatroom_id) throws Exception {
+		String query = "select count(*) from chatroom where id = ?";
+		int r = 0;
+		try  (Connection conn = dataSource.getConnection();
+				 PreparedStatement ps = conn.prepareStatement(query)){
+			ps.setLong(1, chatroom_id);
+			try (ResultSet rs = ps.executeQuery()){
+				rs.next();
+				r = rs.getInt(1);
+			}
+		}
+		return r;
+	}
+	
+	public boolean checkEnrollMember(long member_id, long chatroom_id) throws Exception{
+		String query = "select count(*) from chat_enroll where member_id = ? and chatroom_id = ?";
+		int r = 0;
+		try  (Connection conn = dataSource.getConnection();
+				 PreparedStatement ps = conn.prepareStatement(query)){
+			ps.setLong(1, member_id);
+			ps.setLong(2, chatroom_id);
+			try (ResultSet rs = ps.executeQuery()){
+				rs.next();
+				r = rs.getInt(1);
+			}
+		}
+		return r==1;
+	}
+	
+	public void deleteEnroll(long member_id, long chatroom_id) throws Exception {
+		String query = "delete from chat_enroll  where member_id = ? and chatroom_id = ?";
 		try  (Connection conn = dataSource.getConnection();
 				 PreparedStatement ps = conn.prepareStatement(query)){
 			ps.setLong(1, member_id);

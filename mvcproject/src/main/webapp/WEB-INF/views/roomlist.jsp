@@ -13,18 +13,12 @@ window.onload = ()=>{
 	const chatting_room_btn = document.getElementById("chatting_room_btn");
 	chatting_room_btn.addEventListener('click', (e)=>{
 		const req = new XMLHttpRequest();
-		/* req.onreadystatechange = ()=>{
-			console.log("통신 성공!!!");
-		}; */
-		console.log("클릭");
 		let uri = "/mvcproject/chatting/makeroom?name="+document.getElementById("chatting_room").value;
 		req.open('GET', uri, true);
 		req.send();
 		req.onload = ()=>{
 			if(req.status==200){
 				let res = JSON.parse(req.responseText);
-				console.log(res);
-				console.log("생성버튼 누름");
 				if(res.status=="success"){
 					location.reload();
 				} else alert("채팅방 생성에 실패 했습니다.");
@@ -48,7 +42,7 @@ window.onload = ()=>{
 </tr>
 	<c:forEach var="dto" items="${list }">
 	<tr>
-	<td><a href="detail?no=${dto.id}">${dto.id }</a></td>
+	<td><a href="/mvcproject/chatting/room?chatroom_id=${dto.id}">${dto.id }</a></td>
 	<td>${dto.name }</td>
 	</tr>
 	</c:forEach>
