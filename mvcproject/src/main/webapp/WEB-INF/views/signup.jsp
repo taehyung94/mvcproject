@@ -45,6 +45,7 @@ window.onload = ()=>{
 			console.log("통신 성공!!!");
 		}; */
 		let uri = "idcheck?loginId="+document.getElementById("login_id").value;
+		console.log(uri);
 		req.open('GET', uri, true);
 		req.send();
 		req.onload = ()=>{

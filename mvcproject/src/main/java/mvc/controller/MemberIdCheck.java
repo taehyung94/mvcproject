@@ -18,7 +18,8 @@ public class MemberIdCheck extends AbstractController{
 		JSONObject check = new JSONObject();
 		String status = "";
 		try {
-			if(memberService.idCheck(req.getParameter("login_id"))) {
+			if(memberService.idCheck(req.getParameter("loginId"))) {
+				System.out.println(req.getParameter("loginId"));
 				status="success";
 			} else {
 				status="redundant";
