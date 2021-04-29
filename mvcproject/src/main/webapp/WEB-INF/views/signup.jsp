@@ -40,7 +40,7 @@ window.onload = ()=>{
 	
 	id_check_btn.addEventListener('click', (e)=>{
 		const req = new XMLHttpRequest();
-		let uri = "idcheck?loginId="+document.getElementById("login_id").value;
+		let uri = "idcheck?login_id="+document.getElementById("login_id").value;
 		req.open('GET', uri, true);
 		req.send();
 		req.onload = ()=>{
