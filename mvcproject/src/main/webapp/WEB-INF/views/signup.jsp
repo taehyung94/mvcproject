@@ -25,7 +25,6 @@ window.onload = ()=>{
 		id_check = false;
 	});
 	login_password_check.addEventListener("keyup",e=>{
-		console.log(login_password_check.value);
 		  if(pwd_check()){
 			pw_check_log.innerHTML="비밀번호가 일치합니다.";
 		} else{
@@ -41,11 +40,7 @@ window.onload = ()=>{
 	
 	id_check_btn.addEventListener('click', (e)=>{
 		const req = new XMLHttpRequest();
-		/* req.onreadystatechange = ()=>{
-			console.log("통신 성공!!!");
-		}; */
 		let uri = "idcheck?loginId="+document.getElementById("login_id").value;
-		console.log(uri);
 		req.open('GET', uri, true);
 		req.send();
 		req.onload = ()=>{
